@@ -7,13 +7,6 @@ const checkCard = (card, res) => {
   return res.status(404).send({ message: 'Карточка с указанным _id не найдена' });
 };
 
-// const checkId = (id, res) => {
-//   if (!id) {
-//     return res.status(404).send({ message: 'Карточка с указанным _id не найдена' });
-//   }
-//   return res.send(id);
-// };
-
 const createCard = (req, res) => {
   const { _id } = req.user;
   const { name, link } = req.body;
@@ -61,9 +54,6 @@ const likeCard = (req, res) => {
       if (err.name === 'CastError') {
         return res.status(400).send({ message: 'Переданы некорректные данные' });
       }
-      // if (err.name === 'ValidationError') {
-      //   return res.status(400).send({ message: 'Переданы некорректные данные' });
-      // }
       return res.status(500).send({ message: 'Произошла ошибка' });
     });
 };
@@ -79,9 +69,6 @@ const dislikeCard = (req, res) => {
       if (err.name === 'CastError') {
         return res.status(400).send({ message: 'Переданы некорректные данные' });
       }
-      // if (err.name === 'ValidationError') {
-      //   return res.status(400).send({ message: 'Переданы некорректные данные' });
-      // }
       return res.status(500).send({ message: 'Произошла ошибка' });
     });
 };
