@@ -7,6 +7,13 @@ const checkCard = (card, res) => {
   return res.status(404).send({ message: 'Карточка с указанным _id не найдена' });
 };
 
+// const checkId = (id, res) => {
+//   if (!id) {
+//     return res.status(404).send({ message: 'Карточка с указанным _id не найдена' });
+//   }
+//   return res.send(id);
+// };
+
 const createCard = (req, res) => {
   const { _id } = req.user;
   const { name, link } = req.body;
@@ -34,7 +41,7 @@ const deleteCard = (req, res) => {
   const { cardId } = req.params;
 
   Card.findByIdAndRemove(cardId)
-    .then((card) => res.send(card))
+    .then((card) => checkCard(card, res))
     .catch((err) => {
       if (err.name === 'CastError') {
         return res.status(400).send({ message: 'Переданы некорректные данные' });
