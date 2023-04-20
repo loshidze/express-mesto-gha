@@ -1,5 +1,12 @@
 const User = require('../models/user');
 
+const checkUser = (user, res) => {
+  if (user) {
+    return res.send(user);
+  }
+  return res.status(404).send({ message: 'Пользователь по указанному _id не найден' });
+};
+
 const getAllUsers = (req, res) => {
   User.find({})
     .then((user) => res.send({ data: user }))
@@ -23,7 +30,7 @@ const getUserById = (req, res) => {
   const { userId } = req.params;
 
   User.findById(userId)
-    .then((user) => res.send({ data: user }))
+    .then((user) => checkUser(user, res))
     .catch((err) => {
       if (err.name === 'CastError') {
         return res.status(400).send({ message: 'Переданы некорректные данные' });
@@ -43,7 +50,7 @@ const updateUser = (req, res) => {
       runValidators: true,
     },
   )
-    .then((user) => res.send(user))
+    .then((user) => checkUser(user, res))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return res.status(400).send({ message: 'Переданы некорректные данные' });
@@ -66,7 +73,7 @@ const updateAvatar = (req, res) => {
       runValidators: true,
     },
   )
-    .then((user) => res.send(user))
+    .then((user) => checkUser(user, res))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return res.status(400).send({ message: 'Переданы некорректные данные' });
