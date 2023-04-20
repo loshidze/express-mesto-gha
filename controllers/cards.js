@@ -30,7 +30,7 @@ const deleteCard = (req, res) => {
     .then((card) => res.send(card))
     .catch((err) => {
       if (err.name === 'CastError') {
-        return res.status(404).send({ message: 'Карточка с указанным _id не найдена' });
+        return res.status(400).send({ message: 'Переданы некорректные данные' });
       }
       return res.status(500).send({ message: 'Произошла ошибка' });
     });
@@ -45,11 +45,11 @@ const likeCard = (req, res) => {
     .then((card) => res.send(card))
     .catch((err) => {
       if (err.name === 'CastError') {
-        return res.status(404).send({ message: 'Передан несуществующий _id карточки.' });
-      }
-      if (err.name === 'ValidationError') {
         return res.status(400).send({ message: 'Переданы некорректные данные' });
       }
+      // if (err.name === 'ValidationError') {
+      //   return res.status(400).send({ message: 'Переданы некорректные данные' });
+      // }
       return res.status(500).send({ message: 'Произошла ошибка' });
     });
 };
@@ -63,11 +63,11 @@ const dislikeCard = (req, res) => {
     .then((card) => res.send(card))
     .catch((err) => {
       if (err.name === 'CastError') {
-        return res.status(404).send({ message: 'Передан несуществующий _id карточки.' });
-      }
-      if (err.name === 'ValidationError') {
         return res.status(400).send({ message: 'Переданы некорректные данные' });
       }
+      // if (err.name === 'ValidationError') {
+      //   return res.status(400).send({ message: 'Переданы некорректные данные' });
+      // }
       return res.status(500).send({ message: 'Произошла ошибка' });
     });
 };
