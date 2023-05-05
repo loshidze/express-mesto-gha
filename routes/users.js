@@ -2,7 +2,6 @@ const usersRouter = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const {
   getAllUsers,
-  // createUser,
   getUserById,
   updateUser,
   updateAvatar,
@@ -27,6 +26,5 @@ usersRouter.patch('/me/avatar', celebrate({
     avatar: Joi.string().regex(/^https?:\/\/(?:[\w-]+\.)+[a-z]{2,}(?:\/\S*)?$/i),
   }),
 }), updateAvatar);
-// usersRouter.post('/', createUser);
 
 module.exports = usersRouter;
